@@ -1,0 +1,109 @@
+package com.project.road2food.data
+
+import android.os.Bundle
+import android.system.Os.remove
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.project.road2food.MainActivity
+import com.project.road2food.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
+
+class HomeFragment : Fragment(R.layout.fragment_home) { override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+): View? {
+
+    val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+    val btnmap = view.findViewById<Button>(R.id.btnmap)
+    val btnoffers = view.findViewById<Button>(R.id.btnoffers)
+    val btnlogin = view.findViewById<Button>(R.id.btnlogin)
+
+    val button = view.findViewById<Button>(R.id.dropDown)
+    val imghome = view.findViewById<ImageView>(R.id.imghome)
+    val txthome = view.findViewById<TextView>(R.id.txthome)
+
+    view.findViewById<Button>(R.id.btnmap)
+    btnmap.setOnClickListener {
+
+        val mapFragment = Map1Fragment()
+        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        transaction.replace(R.id.fragment_container, mapFragment)
+        transaction.commit()
+    }
+
+    view.findViewById<Button>(R.id.btnoffers)
+    btnoffers.setOnClickListener {
+        val offersFragment = OffersFragment()
+        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        transaction.replace(R.id.fragment_container, offersFragment)
+        transaction.commit()
+    }
+
+    view.findViewById<Button>(R.id.btnlogin)
+    btnlogin.setOnClickListener {
+        val offersFragment = AccountFragment()
+        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        transaction.replace(R.id.fragment_container, offersFragment)
+        transaction.commit()
+    }
+
+    view.findViewById<ImageView>(R.id.imghome)
+    imghome.setOnClickListener {
+        val offersFragment = OffersFragment()
+        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        transaction.replace(R.id.fragment_container, offersFragment)
+        transaction.commit()
+    }
+
+    view.findViewById<TextView>(R.id.txthome)
+    txthome.setOnClickListener {
+        val map1Fragment = Map1Fragment()
+        val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        transaction.replace(R.id.fragment_container, map1Fragment)
+        transaction.commit()
+    }
+
+    button.setOnClickListener {
+        val popupMenu: PopupMenu = PopupMenu(context, button)
+        popupMenu.menuInflater.inflate(R.menu.food_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.itdinner -> {
+                    val lunchmenu = Lunch_Menu()
+                    val transaction: FragmentTransaction =
+                        requireFragmentManager().beginTransaction()
+                    transaction.replace(R.id.fragment_contain, lunchmenu)
+                    transaction.commit()
+                }
+                R.id.itlunch -> {
+                    val lunchmenu = Lunch_Menu()
+                    val transaction: FragmentTransaction =
+                        requireFragmentManager().beginTransaction()
+                    transaction.replace(R.id.fragment_contain, lunchmenu)
+                    transaction.commit()
+                }
+                R.id.itbreakfast -> {
+                    val lunchmenu = Lunch_Menu()
+                    val transaction: FragmentTransaction =
+                        requireFragmentManager().beginTransaction()
+                    transaction.replace(R.id.fragment_contain, lunchmenu)
+                    transaction.commit()
+                }
+            }
+            true
+        })
+        popupMenu.show()
+    }
+    return view
+}
+}
